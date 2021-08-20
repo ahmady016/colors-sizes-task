@@ -1,8 +1,16 @@
 import React from 'react'
 
+import SizesColorsTable from './components/SizesColorsTable'
+
+import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
+
 function App() {
 	return (
-    <h1>Colors Sizes Data Grid</h1>
+		<Container maxWidth="md">
+			<Typography component="h1" variant="h3">Colors Sizes Data Grid</Typography>
+			<SizesColorsTable />
+		</Container>
 	)
 }
 
