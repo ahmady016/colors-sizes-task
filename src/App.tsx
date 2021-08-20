@@ -9,7 +9,7 @@ function App() {
 	return (
 		<Container maxWidth="md">
 			<Typography component="h1" variant="h3">Colors Sizes Data Grid</Typography>
-			<SizesColorsTable />
+			<SizesColorsTable sizesCols={3} colorsRows={3} />
 		</Container>
 	)
 }
