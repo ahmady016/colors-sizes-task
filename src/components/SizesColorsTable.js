@@ -1,5 +1,4 @@
 import React from 'react'
-import { nanoid } from 'nanoid'
 
 import Paper from '@material-ui/core/Paper'
 import TableContainer from '@material-ui/core/TableContainer'
@@ -9,34 +8,38 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 
 import SizesDropdown from './SizesDropdown'
 import ColorsDropdown from './ColorsDropdown'
 import QuantityInput from './QuantityInput'
 
 import { sizes, colors } from '../constants'
+import { getInitialValues, getNextSizeValue, getNextColorValue } from '../helpers'
 
 function SizesColorsTable({ sizesCols, colorsRows }) {
-	const topSizes = sizes.slice(0, sizesCols)
-	const topColors = colors.slice(0, colorsRows)
-	const initialResult = topSizes
-		.map((size) => {
-			return topColors.map((color) => ({
-				id: nanoid(),
-				size,
-				color,
-				quantity: 0,
-			}))
-		})
-		.flat()
+	const [topSizes, setTopSizes] = React.useState(() => sizes.slice(0, sizesCols))
+	const [topColors, setTopColors] = React.useState(() => colors.slice(0, colorsRows))
 
-	const [allSelectedSizes, setAllSelectedSizes] = React.useState(topSizes)
-	const [allSelectedColors, setAllSelectedColors] = React.useState(topColors)
-	const [result, setResult] = React.useState(initialResult)
+	const [allSelectedSizes, setAllSelectedSizes] = React.useState([...topSizes])
+	const [allSelectedColors, setAllSelectedColors] = React.useState([...topColors])
 
-	React.useEffect(() => {
-		console.log(result)
-	}, [result])
+	const [result, setResult] = React.useState(getInitialValues(topSizes, topColors))
+
+	const addMoreSize = React.useCallback(e => {
+		const newSizes = [...topSizes, getNextSizeValue(allSelectedSizes)]
+		setTopSizes(newSizes)
+		setAllSelectedSizes([...newSizes])
+		setResult(getInitialValues(newSizes, topColors))
+	}, [topSizes, topColors, allSelectedSizes])
+
+	const addMoreColor = React.useCallback(e => {
+		const newColors = [...topColors, getNextColorValue(allSelectedColors)]
+		setTopColors(newColors)
+		setAllSelectedColors([...newColors])
+		setResult(getInitialValues(topSizes, newColors))
+	}, [topSizes, topColors, allSelectedColors])
 
 	return (
 		<>
@@ -54,6 +57,11 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 									/>
 								</TableCell>
 							))}
+							<TableCell>
+								<IconButton color="primary" aria-label="add more size" onClick={addMoreSize}>
+									<AddCircleIcon />
+								</IconButton>
+							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -81,6 +89,12 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 					</TableBody>
 				</Table>
 			</TableContainer>
+
+			<IconButton color="primary" aria-label="add more size" onClick={addMoreColor}>
+				<AddCircleIcon />
+			</IconButton>
+
+			<br />
 			<br />
 			<Button
 				variant="contained"
