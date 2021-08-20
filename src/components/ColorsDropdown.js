@@ -20,13 +20,14 @@ function ColorsDropdown({ value, allSelectedColors, setAllSelectedColors }) {
 		}
 	}
 	return (
-		<FormControl>
+		<FormControl fullWidth>
 			<InputLabel id="demo-simple-select-label">Colors</InputLabel>
 			<Select
 				labelId="colors-dropdown"
 				id="colors-dropdown"
 				value={color}
 				onChange={handleChange}
+				fullWidth
 			>
 				{colors.map((item) => (
 					<MenuItem key={item} value={item}>

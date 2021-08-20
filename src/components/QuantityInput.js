@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField"
 function QuantityInput({ index, color, size, setResult }) {
   const [quantity, setQuantity] = React.useState(0)
   const handleChange = (e) => {
-    let currentQuantity = parseFloat(e.target.value.trim() || 0)
+    let currentQuantity = parseFloat(e.target.value)
     setResult((result) =>
       result.map((item) =>
         item.color === color && item.size === size
@@ -24,6 +24,7 @@ function QuantityInput({ index, color, size, setResult }) {
     <TextField
       id={`quantity-${index}`}
       label="Quantity"
+      type="number"
       value={quantity}
       onChange={handleChange}
     />

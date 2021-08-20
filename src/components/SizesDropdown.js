@@ -22,13 +22,14 @@ function SizesDropdown({ value, allSelectedSizes, setAllSelectedSizes }) {
 		}
 	}
 	return (
-		<FormControl>
+		<FormControl fullWidth>
 			<InputLabel id="demo-simple-select-label">Sizes</InputLabel>
 			<Select
 				labelId="sizes-dropdown"
 				id="sizes-dropdown"
 				value={size}
 				onChange={handleChange}
+				fullWidth
 			>
 				{sizes.map((item) => (
 					<MenuItem key={item} value={item}>

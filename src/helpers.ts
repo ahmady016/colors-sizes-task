@@ -1,20 +1,26 @@
 import { nanoid } from "nanoid"
 import { sizes, colors } from "./constants"
 
-export const getInitialValues = (topSizes: number[], topColors: string[]) =>
-  () => {
-    return topSizes
-      .map(size => topColors
-        .map(color => ({
-          id: nanoid(6),
-          size,
-          color,
-          quantity: 0,
-        })
-        )
+export type ResultType = {
+  id: string
+  color: string
+  size: number
+  quantity: number
+}
+
+export const getInitialValues = (topSizes: number[], topColors: string[], prevValues: ResultType[]) => {
+  return topSizes
+    .map(size => topColors
+      .map(color => ({
+        id: nanoid(6),
+        size,
+        color,
+        quantity: prevValues?.find(item => item.size === size && item.color === color)?.quantity ?? 0,
+      })
       )
-      .flat()
-  }
+    )
+    .flat()
+}
 
 export const getNextSizeValue = (selectedSizes: number[]) => {
   let i = 0

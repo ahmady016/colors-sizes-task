@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container'
 function App() {
 	return (
 		<Container maxWidth="md">
-			<Typography component="h1" variant="h3">Colors Sizes Data Grid</Typography>
+			<Typography component="h1" variant="h4">Colors Sizes Data Grid</Typography>
 			<SizesColorsTable sizesCols={3} colorsRows={3} />
 		</Container>
 	)

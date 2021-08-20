@@ -25,21 +25,21 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 	const [allSelectedSizes, setAllSelectedSizes] = React.useState([...topSizes])
 	const [allSelectedColors, setAllSelectedColors] = React.useState([...topColors])
 
-	const [result, setResult] = React.useState(getInitialValues(topSizes, topColors))
+	const [result, setResult] = React.useState(() => getInitialValues(topSizes, topColors))
 
 	const addMoreSize = React.useCallback(e => {
 		const newSizes = [...topSizes, getNextSizeValue(allSelectedSizes)]
 		setTopSizes(newSizes)
 		setAllSelectedSizes([...newSizes])
-		setResult(getInitialValues(newSizes, topColors))
-	}, [topSizes, topColors, allSelectedSizes])
+		setResult(getInitialValues(newSizes, topColors, result))
+	}, [topSizes, topColors, allSelectedSizes, result])
 
 	const addMoreColor = React.useCallback(e => {
 		const newColors = [...topColors, getNextColorValue(allSelectedColors)]
 		setTopColors(newColors)
 		setAllSelectedColors([...newColors])
-		setResult(getInitialValues(topSizes, newColors))
-	}, [topSizes, topColors, allSelectedColors])
+		setResult(getInitialValues(topSizes, newColors, result))
+	}, [topSizes, topColors, allSelectedColors, result])
 
 	return (
 		<>
@@ -47,7 +47,7 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell>Colors</TableCell>
+							<TableCell>Colors / Sizes</TableCell>
 							{topSizes.map((size) => (
 								<TableCell key={size}>
 									<SizesDropdown
@@ -84,25 +84,44 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 										/>
 									</TableCell>
 								))}
+								{/* total color quantities */}
+								<TableCell style={{ textAlign: 'center' }}>
+									{result
+										.filter(item => item.color === color)
+										.reduce((total, item) => total + item.quantity ,0)
+									}
+								</TableCell>
 							</TableRow>
 						))}
+						{/* total size quantities */}
+						<TableRow>
+							<TableCell>
+								<IconButton color="primary" aria-label="add more size" onClick={addMoreColor}>
+									<AddCircleIcon />
+								</IconButton>
+							</TableCell>
+							{topSizes.map(size => (
+								<TableCell key={size}>
+									{result
+										.filter(item => item.size === size)
+										.reduce((total, item) => total + item.quantity ,0)
+									}
+								</TableCell>
+							))}
+						</TableRow>
 					</TableBody>
 				</Table>
 			</TableContainer>
-
-			<IconButton color="primary" aria-label="add more size" onClick={addMoreColor}>
-				<AddCircleIcon />
-			</IconButton>
-
-			<br />
 			<br />
 			<Button
 				variant="contained"
 				color="primary"
-				onClick={(e) => console.log('Saved Values: ', result)}
+				size="large"
+				onClick={_ => console.log('Saved Values: ', result)}
 			>
 				Save
 			</Button>
+			<br />
 		</>
 	)
 }
