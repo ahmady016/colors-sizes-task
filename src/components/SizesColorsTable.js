@@ -10,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
+import CloseIcon from '@material-ui/icons/Close'
 
 import SizesDropdown from './SizesDropdown'
 import ColorsDropdown from './ColorsDropdown'
@@ -34,12 +35,26 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 		setResult(getInitialValues(newSizes, topColors, result))
 	}, [topSizes, topColors, allSelectedSizes, result])
 
+	const removeOneSize = React.useCallback( sizeToRemove => _ => {
+		const newSizes = topSizes.filter(size => size !== sizeToRemove)
+		setTopSizes(newSizes)
+		setAllSelectedSizes([...newSizes])
+		setResult(getInitialValues(newSizes, topColors, result))
+	}, [topSizes, topColors, result])
+
 	const addMoreColor = React.useCallback(e => {
 		const newColors = [...topColors, getNextColorValue(allSelectedColors)]
 		setTopColors(newColors)
 		setAllSelectedColors([...newColors])
 		setResult(getInitialValues(topSizes, newColors, result))
 	}, [topSizes, topColors, allSelectedColors, result])
+
+	const removeOneColor = React.useCallback(colorToRemove => _ => {
+		const newColors = topColors.filter(color => color !== colorToRemove)
+		setTopColors(newColors)
+		setAllSelectedColors([...newColors])
+		setResult(getInitialValues(topSizes, newColors, result))
+	}, [topSizes, topColors, result])
 
 	return (
 		<>
@@ -48,8 +63,9 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 					<TableHead>
 						<TableRow>
 							<TableCell>Colors / Sizes</TableCell>
-							{topSizes.map((size) => (
+							{topSizes.map((size, index) => (
 								<TableCell key={size}>
+									{index > 0 && <CloseIcon onClick={removeOneSize(size)} style={{ cursor: 'pointer', color: '#b71111' }} />}
 									<SizesDropdown
 										value={size}
 										allSelectedSizes={allSelectedSizes}
@@ -68,6 +84,7 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 						{topColors.map((color, colorIndex) => (
 							<TableRow key={color}>
 								<TableCell>
+									{colorIndex > 0 && <CloseIcon onClick={removeOneColor(color)} style={{ cursor: 'pointer', color: '#b71111' }} />}
 									<ColorsDropdown
 										value={color}
 										allSelectedColors={allSelectedColors}
