@@ -1,5 +1,3 @@
-import React from 'react'
-
 import SizesColorsTable from './components/SizesColorsTable'
 
 import Typography from '@material-ui/core/Typography'

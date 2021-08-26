@@ -1,14 +1,9 @@
 import { nanoid } from "nanoid"
+
 import { sizes, colors } from "./constants"
+import { ResultType } from "./_types"
 
-export type ResultType = {
-  id: string
-  color: string
-  size: number
-  quantity: number
-}
-
-export const getInitialValues = (topSizes: number[], topColors: string[], prevValues: ResultType[]) => {
+export const getInitialValues = (topSizes: number[], topColors: string[], prevValues: ResultType[] | undefined) => {
   return topSizes
     .map(size => topColors
       .map(color => ({

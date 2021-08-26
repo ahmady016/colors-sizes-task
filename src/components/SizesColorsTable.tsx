@@ -17,16 +17,17 @@ import ColorsDropdown from './ColorsDropdown'
 import QuantityInput from './QuantityInput'
 
 import { sizes, colors } from '../constants'
-import { getInitialValues, getNextSizeValue, getNextColorValue } from '../helpers'
+import { getInitialValues, getNextSizeValue, getNextColorValue } from '../_helpers'
+import { ResultType, SizesColorsTableProps } from '../_types'
 
-function SizesColorsTable({ sizesCols, colorsRows }) {
-	const [topSizes, setTopSizes] = React.useState(() => sizes.slice(0, sizesCols))
-	const [topColors, setTopColors] = React.useState(() => colors.slice(0, colorsRows))
+const SizesColorsTable : React.FC<SizesColorsTableProps> = ({ sizesCols, colorsRows }) => {
+	const [topSizes, setTopSizes] = React.useState<number[]>(() => sizes.slice(0, sizesCols))
+	const [topColors, setTopColors] = React.useState<string[]>(() => colors.slice(0, colorsRows))
 
-	const [allSelectedSizes, setAllSelectedSizes] = React.useState([...topSizes])
-	const [allSelectedColors, setAllSelectedColors] = React.useState([...topColors])
+	const [allSelectedSizes, setAllSelectedSizes] = React.useState<number[]>([...topSizes])
+	const [allSelectedColors, setAllSelectedColors] = React.useState<string[]>([...topColors])
 
-	const [result, setResult] = React.useState(() => getInitialValues(topSizes, topColors))
+	const [result, setResult] = React.useState<ResultType[]>(() => getInitialValues(topSizes, topColors, undefined))
 
 	const addMoreSize = React.useCallback(e => {
 		const newSizes = [...topSizes, getNextSizeValue(allSelectedSizes)]
@@ -35,7 +36,7 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 		setResult(getInitialValues(newSizes, topColors, result))
 	}, [topSizes, topColors, allSelectedSizes, result])
 
-	const removeOneSize = React.useCallback( sizeToRemove => _ => {
+	const removeOneSize = React.useCallback( sizeToRemove => (_: any) => {
 		const newSizes = topSizes.filter(size => size !== sizeToRemove)
 		setTopSizes(newSizes)
 		setAllSelectedSizes([...newSizes])
@@ -49,7 +50,7 @@ function SizesColorsTable({ sizesCols, colorsRows }) {
 		setResult(getInitialValues(topSizes, newColors, result))
 	}, [topSizes, topColors, allSelectedColors, result])
 
-	const removeOneColor = React.useCallback(colorToRemove => _ => {
+	const removeOneColor = React.useCallback(colorToRemove => (_: any) => {
 		const newColors = topColors.filter(color => color !== colorToRemove)
 		setTopColors(newColors)
 		setAllSelectedColors([...newColors])
