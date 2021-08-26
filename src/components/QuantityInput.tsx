@@ -1,17 +1,17 @@
 import React from "react"
 
 import TextField from "@material-ui/core/TextField"
+import { QuantityInputProps } from "../_types"
 
-function QuantityInput({ index, color, size, setResult }) {
-  const [quantity, setQuantity] = React.useState(0)
-  const handleChange = (e) => {
+const QuantityInput : React.FC<QuantityInputProps> = ({ index, color, size, setResult }) => {
+  const [quantity, setQuantity] = React.useState<number>(0)
+  const handleChange = (e: any) => {
     let currentQuantity = parseFloat(e.target.value)
     setResult((result) =>
       result.map((item) =>
         item.color === color && item.size === size
           ? {
-              size,
-              color,
+              ...item,
               quantity: currentQuantity
             }
           : item
