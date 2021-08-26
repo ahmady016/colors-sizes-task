@@ -16,7 +16,7 @@ import SizesDropdown from './SizesDropdown'
 import ColorsDropdown from './ColorsDropdown'
 import QuantityInput from './QuantityInput'
 
-import { sizes, colors } from '../constants'
+import { sizes, colors } from '../_constants'
 import { getInitialValues, getNextSizeValue, getNextColorValue } from '../_helpers'
 import { ResultType, SizesColorsTableProps } from '../_types'
 

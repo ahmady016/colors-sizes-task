@@ -5,7 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
-import { sizes } from '../constants'
+import { sizes } from '../_constants'
 import { SizesDropdownProps } from '../_types'
 
 const SizesDropdown : React.FC<SizesDropdownProps> = ({ value, allSelectedSizes, setAllSelectedSizes }) => {

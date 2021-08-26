@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid"
 
-import { sizes, colors } from "./constants"
+import { sizes, colors } from "./_constants"
 import { ResultType } from "./_types"
 
 export const getInitialValues = (topSizes: number[], topColors: string[], prevValues: ResultType[] | undefined) => {

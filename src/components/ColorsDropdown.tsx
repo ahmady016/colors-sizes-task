@@ -5,7 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
-import { colors } from '../constants'
+import { colors } from '../_constants'
 import { ColorsDropdownProps } from '../_types'
 
 const ColorsDropdown : React.FC<ColorsDropdownProps> = ({ value, allSelectedColors, setAllSelectedColors }) => {
