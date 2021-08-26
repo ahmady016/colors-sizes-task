@@ -6,10 +6,11 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
 import { colors } from '../constants'
+import { ColorsDropdownProps } from '../_types'
 
-function ColorsDropdown({ value, allSelectedColors, setAllSelectedColors }) {
-	const [color, setColor] = React.useState(value)
-	const handleChange = (e) => {
+const ColorsDropdown : React.FC<ColorsDropdownProps> = ({ value, allSelectedColors, setAllSelectedColors }) => {
+	const [color, setColor] = React.useState<string>(value)
+	const handleChange = (e: any) => {
 		let selectedColor = e.target.value
 		if (!allSelectedColors.includes(selectedColor)) {
 			setAllSelectedColors((colors) => [

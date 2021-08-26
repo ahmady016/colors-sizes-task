@@ -6,13 +6,12 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
 import { sizes } from '../constants'
+import { SizesDropdownProps } from '../_types'
 
-function SizesDropdown({ value, allSelectedSizes, setAllSelectedSizes }) {
-	const [size, setSize] = React.useState(value)
-	const handleChange = (e) => {
+const SizesDropdown : React.FC<SizesDropdownProps> = ({ value, allSelectedSizes, setAllSelectedSizes }) => {
+	const [size, setSize] = React.useState<number>(value)
+	const handleChange = (e: any) => {
 		let selectedValue = e.target.value
-		console.log(selectedValue)
-		console.log(allSelectedSizes)
 		if (!allSelectedSizes.includes(selectedValue)) {
 			setAllSelectedSizes((sizes) => [
 				...sizes.filter((_size) => _size !== size),

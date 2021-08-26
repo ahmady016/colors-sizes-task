@@ -16,3 +16,15 @@ export type QuantityInputProps = {
   color: string
   setResult: React.Dispatch<React.SetStateAction<ResultType[]>>
 }
+
+export type SizesDropdownProps = {
+  value: number
+  allSelectedSizes: number[]
+  setAllSelectedSizes: React.Dispatch<React.SetStateAction<number[]>>
+}
+
+export type ColorsDropdownProps = {
+  value: string
+  allSelectedColors: string[]
+  setAllSelectedColors: React.Dispatch<React.SetStateAction<string[]>>
+}
